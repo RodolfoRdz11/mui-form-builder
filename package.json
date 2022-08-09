@@ -37,15 +37,15 @@
     "vite": "^3.0.0",
     "vite-plugin-dts": "^1.4.1"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^^18.2.0",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@mui/material": "^5.9.3",
     "@mui/styled-engine": "^5.8.7",
-    "@mui/styles": "^5.9.3"
+    "@mui/styles": "^5.9.3",
+    "react": "^18.2.0",
+    "react-dom": "^^18.2.0"
   },
   "files": [
     "dist"
