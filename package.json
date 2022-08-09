@@ -1,12 +1,12 @@
 {
-  "name": "mui-form-builder",
+  "name": "@rodolfordz11/mui-form-builder",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.3",
   "type": "module",
   "description": "A library of React components for creating dynamic forms",
   "author": "RodolfoRdz11",
   "license": "MIT",
-  "repository": "https://github.com/RodolfoRdz11/mui-form-builder.git",
+  "repository": "https://github.com/RodolfoRdz11/mui-form-builder",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
