@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
+import { onChangeEventType } from 'src/types';
 import { CheckInput } from './Check';
 
 const meta: ComponentMeta<typeof CheckInput> = {
@@ -13,13 +14,33 @@ const Template: ComponentStory<typeof CheckInput> = args => {
     return (
         <CheckInput
             {...args}
-            label="Check"
             name="value"
             value={value}
-            //@ts-ignore
-            onChange={(event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value)}
+            onChange={(event: onChangeEventType) => setValue(event.target.value)}
         />
     )
 }
 
-export const Check = Template.bind({})
+export const CheckStandard = Template.bind({})
+CheckStandard.args = {
+    variant: 'standard',
+    label: 'Standard check'
+}
+
+export const CheckStandardSwitch = Template.bind({})
+CheckStandardSwitch.args = {
+    variant: 'switch',
+    label: 'Standard switch',
+}
+
+export const CheckChip = Template.bind({})
+CheckChip.args = {
+    variant: 'chip',
+    label: 'Chip check'
+}
+
+export const CheckCard = Template.bind({})
+CheckCard.args = {
+    variant: 'card',
+    label: 'Card check'
+}
