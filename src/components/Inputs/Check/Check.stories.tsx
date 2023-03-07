@@ -26,21 +26,3 @@ CheckStandard.args = {
     variant: 'standard',
     label: 'Standard check'
 }
-
-export const CheckStandardSwitch = Template.bind({})
-CheckStandardSwitch.args = {
-    variant: 'switch',
-    label: 'Standard switch',
-}
-
-export const CheckChip = Template.bind({})
-CheckChip.args = {
-    variant: 'chip',
-    label: 'Chip check'
-}
-
-export const CheckCard = Template.bind({})
-CheckCard.args = {
-    variant: 'card',
-    label: 'Card check'
-}

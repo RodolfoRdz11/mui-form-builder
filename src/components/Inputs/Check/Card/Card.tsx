@@ -8,7 +8,7 @@ export function CheckCardInput({ name, label, value, disabled, onChange }: Check
 
     return (
         <Grid
-            id="check-chip-container"
+            id="check-card-container"
             container
             className={classes.cardContainer}
         >
