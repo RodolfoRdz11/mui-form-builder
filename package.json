@@ -1,7 +1,7 @@
 {
   "name": "@rodolfordz11/mui-form-builder",
   "private": false,
-  "version": "0.0.8",
+  "version": "0.0.9",
   "type": "module",
   "description": "A library of React components for creating dynamic forms",
   "author": "RodolfoRdz11",
