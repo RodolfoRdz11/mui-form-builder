@@ -8,6 +8,7 @@ import {
     StandardTextFieldProps,
     OutlinedTextFieldProps,
 } from "@mui/material";
+import ExpandIcon from "@mui/icons-material/ExpandMore"
 import { InputPropsType } from "src/types";
 import { useStyles } from "./Select.styles"
 import _ from "lodash"
@@ -56,6 +57,7 @@ export function SelectInput({
                 select
                 SelectProps={{
                     displayEmpty: true,
+                    IconComponent: ExpandIcon,
                     MenuProps: {
                         anchorOrigin: {
                             vertical: 'bottom',
