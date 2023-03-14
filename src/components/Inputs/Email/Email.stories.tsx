@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import { EmailInput } from './Email';
 
 const meta: ComponentMeta<typeof EmailInput> = {
@@ -16,7 +16,7 @@ const Template: ComponentStory<typeof EmailInput> = args => {
             label="Email"
             name="value"
             value={value}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value)}
+            onChange={(event) => setValue(event.target.value)}
         />
     )
 }
