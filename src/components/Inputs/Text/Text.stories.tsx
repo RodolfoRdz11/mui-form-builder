@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import { TextInput } from './Text';
 
 const meta: ComponentMeta<typeof TextInput> = {
@@ -13,10 +13,9 @@ const Template: ComponentStory<typeof TextInput> = args => {
     return (
         <TextInput
             {...args}
-            label="Outlined select"
             name="value"
             value={value}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value)}
+            onChange={(event) => setValue(event.target.value)}
         />
     )
 }
@@ -31,7 +30,7 @@ Standard.args = {
 export const Outlined = Template.bind({})
 Outlined.args = {
     variant: 'outlined',
-    label: 'OutlinedInput',
+    label: 'Outlined Input',
     placeholder: 'Type'
 }
 

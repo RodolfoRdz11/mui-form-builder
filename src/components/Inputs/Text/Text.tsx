@@ -41,7 +41,7 @@ export function TextInput({
     const InputComponent = variantComponent[variant]
 
     return (
-        <FormControl fullWidth error={touched && error}>
+        <FormControl fullWidth error={touched && Boolean(error)}>
             {label && (
                 <FormLabel
                     htmlFor={name}
