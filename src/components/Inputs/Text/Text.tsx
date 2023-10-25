@@ -1,33 +1,23 @@
-import { ComponentType } from "react"
 import {
     FormControl,
     FormLabel,
-    Input,
     FormHelperText,
-    OutlinedInput,
     StandardTextFieldProps,
     OutlinedTextFieldProps,
-    FormLabelProps
+    FormLabelProps,
+    TextField,
 } from "@mui/material"
 import { InputPropsType } from "src/types"
 import { useStyles } from "./Text.styles"
 
-export type TextInputProps = (StandardTextFieldProps | OutlinedTextFieldProps) & InputPropsType & {
+export type TextInputProps = (StandardTextFieldProps | Omit<OutlinedTextFieldProps, 'variant'>) & InputPropsType & {
     error?: any
     variant?: 'standard' | 'outlined',
     formLabelProps?: FormLabelProps,
 }
 
-interface VariantComponentType {
-    [name: string]: ComponentType
-}
-
-const variantComponent: VariantComponentType = {
-    standard: Input,
-    outlined: OutlinedInput
-}
-
 export function TextInput({
+    inputRef,
     name,
     label,
     helperText,
@@ -35,13 +25,17 @@ export function TextInput({
     touched,
     error,
     formLabelProps,
+    value,
     ...rest
 }: TextInputProps) {
     const classes = useStyles()
-    const InputComponent = variantComponent[variant]
 
     return (
-        <FormControl fullWidth error={touched && Boolean(error)}>
+        <FormControl
+            fullWidth
+            error={touched && Boolean(error)}
+            className={rest.className}
+        >
             {label && (
                 <FormLabel
                     htmlFor={name}
@@ -52,7 +46,14 @@ export function TextInput({
                 </FormLabel>
             )}
 
-            <InputComponent {...rest} />
+            <TextField
+                inputRef={inputRef}
+                fullWidth
+                size="small"
+                name={name}
+                value={value || ''}
+                {...rest}
+            />
 
             {touched && error && (
                 <FormHelperText> {error} </FormHelperText>
