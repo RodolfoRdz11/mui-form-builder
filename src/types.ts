@@ -1,4 +1,9 @@
-import { ChangeEvent } from "react"
+import { ChangeEvent } from "react";
+import { Theme } from "@mui/material";
+
+declare module '@mui/styles' {
+    interface DefaultTheme extends Theme { }
+}
 
 export type onChangeEventType = ChangeEvent<HTMLInputElement> | {
     target: {
@@ -7,11 +12,12 @@ export type onChangeEventType = ChangeEvent<HTMLInputElement> | {
     }
 }
 
-export interface InputPropsType {
+export interface InputPropsType<T = any> {
     label?: string
-    name: string
-    value: any
-    onChange: (event: onChangeEventType) => void
+    placeholder?: string
+    name: keyof T | any
+    value?: any
+    onChange?: (event: onChangeEventType) => void
     disabled?: boolean
     /**Custom error message */
     error?: string
@@ -21,13 +27,30 @@ export interface InputPropsType {
         label: string
         value: string
     }[])
+    config?: any
+    className?: string
+    inputRef?: any
 }
 
 export type InputTypes =
     'text'
     | 'select'
     | 'email'
+    | 'password'
+    | 'checkbox'
+    | 'radio'
+    | 'date'
+    | 'number'
+    | 'textarea'
+    | 'currency'
+    | 'autocomplete'
 
-export interface InputType extends InputPropsType {
+
+export interface InputType<T = any> extends InputPropsType<T> {
     inputType: InputTypes
+    required?: boolean
+    hidden?: boolean
+    row?: number
+    width?: number
+    mobileWidth?: number
 }
