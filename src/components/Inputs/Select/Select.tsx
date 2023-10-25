@@ -8,12 +8,11 @@ import {
     StandardTextFieldProps,
     OutlinedTextFieldProps,
 } from "@mui/material";
-import ExpandIcon from "@mui/icons-material/ExpandMore"
+import ExpandIcon from "@mui/icons-material/ExpandMoreRounded"
 import { InputPropsType } from "src/types";
 import { useStyles } from "./Select.styles"
-import _ from "lodash"
 
-interface SelectOptionType {
+export interface SelectOptionType {
     label: string
     value: string
 }
@@ -25,6 +24,7 @@ export type SelectInputProps = (StandardTextFieldProps | OutlinedTextFieldProps)
 }
 
 export function SelectInput({
+    inputRef,
     name,
     label,
     placeholder,
@@ -35,6 +35,7 @@ export function SelectInput({
     menuItemProps,
     variant = "outlined",
     formLabelProps,
+    value,
     ...rest
 }: SelectInputProps) {
     const classes = useStyles()
@@ -53,8 +54,11 @@ export function SelectInput({
             )}
 
             <TextField
+                ref={inputRef}
                 fullWidth
                 select
+                size="small"
+                name={name}
                 SelectProps={{
                     displayEmpty: true,
                     IconComponent: ExpandIcon,
@@ -69,22 +73,18 @@ export function SelectInput({
                         },
                         PaperProps: {
                             className: classes.scrollbar,
-                            style: {
-                                border: '1px solid #CFD5E2',
-                                boxShadow: '0px 25px 50px rgba(208, 218, 232, 0.25)',
-                                borderRadius: 4,
-                                maxHeight: 224
-                            }
                         },
                         style: {
                             zIndex: 1303
                         },
+                        disableScrollLock: true,
                         ...MenuProps,
                     },
                     ...restSelectProps
                 }}
                 error={touched && error}
                 helperText={touched && error}
+                value={value || ""}
                 {...rest}
             >
                 {placeholder && (
@@ -97,7 +97,7 @@ export function SelectInput({
                     </MenuItem>
                 )}
 
-                {options.map(({ label, value }: SelectOptionType) => (
+                {options?.map(({ label, value }: SelectOptionType) => (
                     <MenuItem key={value} value={value}>
                         {label}
                     </MenuItem>

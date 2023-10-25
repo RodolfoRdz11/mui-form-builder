@@ -1,28 +1,34 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ChangeEvent, useState } from 'react';
-import { SelectInput } from "./Select"
+import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
+import { SelectInput, SelectInputProps } from '.';
 
-const meta: ComponentMeta<typeof SelectInput> = {
+const meta: Meta<typeof SelectInput> = {
     component: SelectInput,
+    render: (args: SelectInputProps) => {
+        const [value, setValue] = useState('')
+
+        return (
+            <SelectInput
+                {...args}
+                name="value"
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+                options={[
+                    { label: 'Option 1', value: '1' },
+                    { label: 'Option 2', value: '2' },
+                ]}
+            />
+        )
+    }
 };
 export default meta;
 
-const Template: ComponentStory<typeof SelectInput> = args => {
-    const [value, setValue] = useState('')
+type Story = StoryObj<any>;
 
-    return (
-        <SelectInput
-            variant="outlined"
-            label="Outlined select"
-            name="value"
-            value={value}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value)}
-            options={[
-                { label: 'Option 1', value: '1' },
-                { label: 'Option 2', value: '2' },
-            ]}
-        />
-    )
+export const Standard: Story = {
+    name: 'Standard',
+    args: {
+        variant: 'standard',
+        label: 'Outlined Input',
+    }
 }
-
-export const Outlined = Template.bind({})
