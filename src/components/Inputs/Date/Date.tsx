@@ -1,25 +1,47 @@
-import esLocale from "date-fns/locale/es";
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import DatePicker, { DatePickerProps } from '@mui/lab/DatePicker';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { TextInput, TextInputProps } from '../Text';
+import { LocalizationProvider, DatePicker, DatePickerProps } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { TextInput } from '../Text';
 import { InputType } from "src/types";
+import { FormControl, FormLabel } from '@mui/material';
+
+import 'dayjs/locale/es';
+import { useStyles } from './Date.styles';
+import dayjs from 'dayjs';
 
 export type DateInputProps = DatePickerProps<string> & InputType;
 
-export function DateInput({ label, onChange, value, name, ...rest }: DateInputProps) {
+export function DateInput({ label, onChange, value, name, error, touched, ...rest }: DateInputProps) {
+    const classes = useStyles()
+
     return (
-        <div>
-            <LocalizationProvider dateAdapter={AdapterDateFns} locale={esLocale}>
+        // @ts-ignore
+        <FormControl fullWidth error={touched && error}>
+            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
+
+                {label && (
+                    <FormLabel
+                        htmlFor={name}
+                        className={classes.label}
+                    >
+                        {label}
+                    </FormLabel>
+                )}
+
                 <DatePicker
                     mask="__/__/____"
-                    value={value}
+                    // @ts-ignore
+                    value={dayjs(value)}
                     //@ts-ignore
                     onChange={(newValue: Date) => onChange({ target: { name, value: newValue } })}
-                    renderInput={(params: TextInputProps) => <TextInput {...params} label={label} />}
+                    size="small"
+                    slotProps={{
+                        textField: {
+                            size: "small",
+                        }
+                    }}
                     {...rest}
                 />
             </LocalizationProvider>
-        </div>
+        </FormControl>
     );
 }
