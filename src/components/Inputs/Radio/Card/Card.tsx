@@ -4,6 +4,7 @@ import { FormControl } from "../../../FormControl";
 import { RadioInputProps } from "../Radio";
 import { useStyles } from "./Card.styles"
 import _ from "lodash"
+import clsx from "clsx";
 
 export function RadioCardInput({
     label,
@@ -17,7 +18,7 @@ export function RadioCardInput({
     onChange,
     ...rest
 }: RadioInputProps) {
-    const { classes, cx } = useStyles()
+    const classes = useStyles()
 
     return (
         <FormControl
@@ -26,7 +27,12 @@ export function RadioCardInput({
             {...rest}
         >
             {label && <FormLabel id={label}> {label} </FormLabel>}
-            <Grid container className={cx(classes.container, className)}>
+            <Grid
+                container
+                spacing={4}
+                flexDirection={rest.config?.row ? 'row' : 'column'}
+                className={clsx(classes.container, className)}
+            >
                 {options?.map(option => {
                     const label = _.isString(option) ? option : option.label
                     const _value = _.isString(option) ? option : option.value
@@ -34,13 +40,13 @@ export function RadioCardInput({
                     return (
                         <Grid
                             key={_value}
-                            item xs={12}
-                            className={cx(classes.card, {
+                            item
+                            className={clsx(classes.card, {
                                 [classes.selected]: _value === value,
                                 [classes.disabled]: disabled
                             })}
                             onClick={() => {
-                                if (!disabled) {
+                                if (!disabled && onChange) {
                                     onChange({ target: { name, value: _value } })
                                 }
                             }}

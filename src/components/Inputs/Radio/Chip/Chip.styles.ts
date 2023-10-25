@@ -1,9 +1,8 @@
-import { makeStyles } from "tss-react/mui";
+import { makeStyles } from "@mui/styles";
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles(theme => ({
     container: {
         paddingTop: 16,
-        gap: 16
     },
     row: {
         flexDirection: 'row'

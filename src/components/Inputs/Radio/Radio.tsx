@@ -1,6 +1,6 @@
 import { ElementType } from "react";
 import { InputPropsType } from "src/types";
-import { FormControlProps } from "../../FormControl";
+import { FormControlProps } from "./../../FormControl";
 
 import { RadioStandardInput } from "./Standard";
 import { RadioChipInput } from "./Chip";
@@ -21,6 +21,6 @@ const radioInputVariant: { [name: string]: ElementType } = {
 }
 
 export function RadioInput({ variant, ...rest }: RadioInputProps) {
-    const RadioComponent = radioInputVariant[variant || 'standard']
+    const RadioComponent = radioInputVariant[variant || rest.config?.variant || 'standard']
     return <RadioComponent {...rest} />
 }

@@ -1,6 +1,6 @@
-import { makeStyles } from "tss-react/mui";
+import { makeStyles } from "@mui/styles"
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles(theme => ({
     container: {
         paddingTop: 16,
         gap: 16
@@ -10,11 +10,12 @@ export const useStyles = makeStyles()(theme => ({
     },
     card: {
         border: '1px solid #CFD5E2',
-        padding: 16,
+        // padding: 16,
         borderRadius: 8,
         display: 'flex',
         alignItems: 'center',
         cursor: 'pointer',
+        minHeight: 40,
         '& > p': {
             wordBreak: 'break-word'
         }

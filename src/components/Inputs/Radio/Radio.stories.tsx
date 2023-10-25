@@ -1,30 +1,32 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { onChangeEventType } from 'src/types';
-import { RadioInput } from './Radio'
+import { RadioInput, RadioInputProps } from '.';
 
-const meta: ComponentMeta<typeof RadioInput> = {
+const meta: Meta<typeof RadioInput> = {
     component: RadioInput,
+    render: (args: RadioInputProps) => {
+        const [value, setValue] = useState('')
+
+        return (
+            <RadioInput
+                {...args}
+                name="value"
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+                options={['Option 1', 'Option 2', 'Option 3']}
+            />
+        )
+    }
 };
 export default meta;
 
-const Template: ComponentStory<typeof RadioInput> = args => {
-    const [value, setValue] = useState('')
+type Story = StoryObj<typeof meta>;
 
-    return (
-        <RadioInput
-            {...args}
-            name="value"
-            value={value}
-            onChange={(e: onChangeEventType) => setValue(e.target.value)}
-            options={['Option 1', 'Option 2', 'Option 3']}
-        />
-    )
-}
-
-export const RadioStandard = Template.bind({})
-RadioStandard.args = {
-    variant: 'standard',
-    label: 'Standard radio',
-    row: false
+export const Standard: Story = {
+    name: 'Standard',
+    args: {
+        variant: 'standard',
+        label: 'Outlined Input',
+        placeholder: 'Text'
+    }
 }
