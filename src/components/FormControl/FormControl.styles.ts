@@ -1,6 +1,6 @@
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from '@mui/styles';
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles(() => ({
     formControl: {
         display: 'flex',
         flexDirection: 'column'
