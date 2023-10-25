@@ -29,7 +29,7 @@ export function CheckStandardInput({
                 <ControlComponent
                     checked={Boolean(value)}
                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                        onChange({ target: { name, value: event.target.checked } })
+                        if (onChange) onChange({ target: { name, value: event.target.checked } })
                     }}
                 />
             }

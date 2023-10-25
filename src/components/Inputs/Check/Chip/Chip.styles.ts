@@ -1,6 +1,6 @@
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from '@mui/styles';
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles(theme => ({
     chipContainer: {
         paddingTop: 16,
         gap: 16
