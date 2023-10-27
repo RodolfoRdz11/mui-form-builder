@@ -11,6 +11,7 @@ export type AutocompleteInputProps<
     DisableClearable extends boolean | undefined,
     FreeSolo extends boolean | undefined,
     ChipComponent extends React.ElementType = ChipTypeMap['defaultComponent']
+// @ts-ignore
 > = AutocompleteProps<Value, Multiple, DisableClearable, FreeSolo, ChipComponent> & InputPropsType & {
     control?: any
     options: SelectOptionType[]

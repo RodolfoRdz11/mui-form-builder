@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import { ComponentType } from 'react'
 import { InputType, InputTypes } from 'src/types'
 
 export * as yup from 'yup'
@@ -68,21 +67,4 @@ export function getInitialValues(inputs: InputType[], values?: any) {
             [v.name]: value
         }
     }, {})
-}
-
-/**
- * Inputs object with component
- */
-export const inputTypes: { [key in InputTypes]: ComponentType<any> } = {
-    text: require('../Inputs/Text').TextInput,
-    number: require('../Inputs/Text').TextInput,
-    select: require('../Inputs/Select').SelectInput,
-    email: require('../Inputs/Email').EmailInput,
-    password: require('../Inputs/Password').PasswordInput,
-    checkbox: require('../Inputs/Text').TextInput,
-    radio: require('../Inputs/Radio').RadioInput,
-    date: require('../Inputs/Date').DateInput,
-    textarea: require('../Inputs/Text').TextAreaInput,
-    currency: require('../Inputs/Text').TextInput,
-    autocomplete: require('../Inputs/Autocomplete').AutocompleteInput,
 }

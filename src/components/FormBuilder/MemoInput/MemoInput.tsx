@@ -1,6 +1,6 @@
 import { Fragment, useMemo } from "react";
 import { InputType } from "src/types";
-import { inputTypes } from "../FormBuilder.helpers";
+import { inputTypes } from "../../../helpers";
 import { useFormBuilderContext } from "../FormBuilder.context";
 import _ from "lodash"
 

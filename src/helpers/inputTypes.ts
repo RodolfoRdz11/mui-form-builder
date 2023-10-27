@@ -1,19 +1,26 @@
-import { ElementType } from "react";
 import { InputTypes } from "src/types";
-import {
-    TextInput,
-    SelectInput,
-    EmailInput,
-    CheckInput,
-    DateInput
-} from "src/components/Inputs"
-import { RadioInput } from "src/components/Inputs/Radio";
 
-export const inputTypes: { [key in InputTypes]: ElementType } = Object.freeze({
+import {
+    AutocompleteInput,
+    DateInput,
+    EmailInput,
+    PasswordInput,
+    RadioInput,
+    SelectInput,
+    TextAreaInput,
+    TextInput
+} from "../components/Inputs";
+
+export const inputTypes: { [key in InputTypes]: any } = Object.freeze({
     text: TextInput,
+    number: TextInput,
     select: SelectInput,
     email: EmailInput,
-    check: CheckInput,
+    password: PasswordInput,
+    checkbox: TextInput,
+    radio: RadioInput,
     date: DateInput,
-    radio: RadioInput
+    textarea: TextAreaInput,
+    currency: TextInput,
+    autocomplete: AutocompleteInput,
 })
