@@ -1,6 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
 import { DateInput } from './Date';
+import { onChangeEventType } from 'src/types';
 
 const meta: ComponentMeta<typeof DateInput> = {
     component: DateInput,
@@ -16,7 +17,9 @@ const Template: ComponentStory<typeof DateInput> = args => {
             label="Date"
             name="value"
             value={value}
-            onChange={(event) => setValue(event.target.value)}
+            onChange={(event) => {
+                setValue(event.target.value)
+            }}
         />
     )
 }
