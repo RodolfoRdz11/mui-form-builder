@@ -1,6 +1,8 @@
 import { ChangeEvent } from "react";
 import { Theme } from "@mui/material";
 
+export * from './components'
+
 declare module '@mui/styles' {
     interface DefaultTheme extends Theme { }
 }

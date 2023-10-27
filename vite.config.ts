@@ -1,7 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts';
-import path from 'path';
+import { extname, relative, resolve } from 'path'
+import { fileURLToPath } from 'node:url'
+import glob from 'glob'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,14 +11,14 @@ export default defineConfig({
     react(),
     dts({
       insertTypesEntry: true,
+      include: ['src']
     })
   ],
   build: {
+    copyPublicDir: false,
     lib: {
-      entry: path.resolve(__dirname, 'src/main.ts'),
-      name: 'MuiFormbuilder',
-      formats: ['es', 'umd'],
-      fileName: (format) => `mui-form-builder.${format}.js`,
+      entry: resolve(__dirname, 'src/main.ts'),
+      formats: ['es'],
     },
     rollupOptions: {
       external: [
@@ -28,17 +30,31 @@ export default defineConfig({
         '@emotion/react',
         '@emotion/styled'
       ],
-      output: {
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
-          '@mui/styles': 'MuiStyles',
-          '@mui/material': 'Mui',
-          '@mui/styled-engine': 'MuiStyledEngine',
-          '@emotion/react': 'EmotionReact',
-          '@emotion/styled': 'EmotionStyled'
-        },
-      },
+      // input: Object.fromEntries(
+      //   glob.sync('src/**/*.{ts,tsx}').map(file => [
+      //     // The name of the entry point
+      //     // lib/nested/foo.ts becomes nested/foo
+      //     relative(
+      //       'src',
+      //       file.slice(0, file.length - extname(file).length)
+      //     ),
+      //     // The absolute path to the entry file
+      //     // lib/nested/foo.ts becomes /project/lib/nested/foo.ts
+      //     fileURLToPath(new URL(file, import.meta.url))
+      //   ])
+      // ),
+      // output: {
+      //   globals: {
+      //     react: 'React',
+      //     'react-dom': 'ReactDOM',
+      //     '@mui/styles': 'MuiStyles',
+      //     '@mui/material': 'Mui',
+      //     '@mui/styled-engine': 'MuiStyledEngine',
+      //     '@emotion/react': 'EmotionReact',
+      //     '@emotion/styled': 'EmotionStyled'
+      //   },
+      //   // entryFileNames: '[name].js',
+      // },
     },
   },
 })
