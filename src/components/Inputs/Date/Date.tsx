@@ -1,20 +1,20 @@
 import { LocalizationProvider, DatePicker, DatePickerProps } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { InputType } from "src/types";
+import { InputPropsType, onChangeEventType } from "src/types";
 import { FormControl, FormLabel } from '@mui/material';
-
-import 'dayjs/locale/es';
 import { useStyles } from './Date.styles';
-import dayjs from 'dayjs';
+import dayjs from "dayjs"
 
-export type DateInputProps = Omit<DatePickerProps<string>, 'onChange'> & InputType;
+export type DateInputProps = Omit<Omit<DatePickerProps<typeof dayjs>, 'value'>, 'onChange'> & InputPropsType & {
+    value: Date
+    onChange: (event: onChangeEventType) => void
+}
 
 export function DateInput({ label, onChange, value, name, error, touched, ...rest }: DateInputProps) {
-    const classes = useStyles()
+    const { classes, cx } = useStyles()
 
     return (
-        // @ts-ignore
-        <FormControl fullWidth error={touched && error}>
+        <FormControl fullWidth error={Boolean(touched && error)}>
             <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
 
                 {label && (
@@ -27,13 +27,11 @@ export function DateInput({ label, onChange, value, name, error, touched, ...res
                 )}
 
                 <DatePicker
-                    mask="__/__/____"
                     // @ts-ignore
                     value={dayjs(value)}
-                    onChange={(newValue: string | null) => {
-                        onChange?.({ target: { name, value: newValue } })
-                    }}
-                    size="small"
+                    // @ts-ignore
+                    onChange={(newValue: Date) => onChange({ target: { name, value: newValue } })}
+                    // @ts-ignore
                     slotProps={{
                         textField: {
                             size: "small",

@@ -1,6 +1,6 @@
 import { FormHelperText, Grid, GridProps } from "@mui/material"
 import { useStyles } from "./FormControl.styles"
-import clsx from "clsx"
+
 
 export type FormControlProps = Omit<GridProps, 'onChange'> & {
     /**
@@ -14,13 +14,13 @@ export type FormControlProps = Omit<GridProps, 'onChange'> & {
 }
 
 export function FormControl({ children, error, touched, className, ...rest }: FormControlProps) {
-    const classes = useStyles()
+    const { classes, cx } = useStyles()
 
     return (
         <Grid
             id="form-control"
             container
-            className={clsx(classes.formControl, className)}
+            className={cx(classes.formControl, className)}
             {...rest}
 
         >

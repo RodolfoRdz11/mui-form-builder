@@ -1,6 +1,5 @@
 import { Autocomplete, AutocompleteChangeReason, AutocompleteProps, ChipTypeMap, Paper } from "@mui/material";
 import ExpandIcon from "@mui/icons-material/ExpandMoreRounded"
-import { Controller } from "react-hook-form";
 import { SelectOptionType, TextInput } from "..";
 import { InputPropsType } from "src/types";
 import { useStyles } from "./Autocomplete.styles";
@@ -11,10 +10,11 @@ export type AutocompleteInputProps<
     DisableClearable extends boolean | undefined,
     FreeSolo extends boolean | undefined,
     ChipComponent extends React.ElementType = ChipTypeMap['defaultComponent']
-// @ts-ignore
-> = AutocompleteProps<Value, Multiple, DisableClearable, FreeSolo, ChipComponent> & InputPropsType & {
+> = Omit<Omit<AutocompleteProps<Value, Multiple, DisableClearable, FreeSolo, ChipComponent>, 'renderInput'>, 'value'> & InputPropsType & {
+    value: any
     control?: any
     options: SelectOptionType[]
+    renderInput?: AutocompleteProps<Value, Multiple, DisableClearable, FreeSolo, ChipComponent>['renderInput']
 }
 
 export function AutocompleteInput<
@@ -40,18 +40,16 @@ export function AutocompleteInput<
     FreeSolo,
     ChipComponent
 >) {
-    const classes = useStyles()
+    const { classes, cx } = useStyles()
     const parsedValue = options.find((option: SelectOptionType) => option.value === value)
 
     function handleChange(e: any, value: any, reason: AutocompleteChangeReason) {
-        if (value) {
-            onChange?.({
-                target: {
-                    name,
-                    value: reason === 'selectOption' ? value?.value : ''
-                }
-            })
-        }
+        onChange?.({
+            target: {
+                name,
+                value: reason === 'selectOption' ? value?.value : ''
+            }
+        })
     }
 
     return (

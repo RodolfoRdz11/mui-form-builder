@@ -2,42 +2,55 @@ import { FormEvent } from "react";
 import { Grid } from "@mui/material";
 import { FormBuilderContext } from "./FormBuilder.context";
 import { InputType } from "src/types";
-import { useForm } from "react-hook-form";
+import { useFormik } from "formik";
 import _ from "lodash"
 
 import { MemoInput } from "./MemoInput";
 import { groupInputsByRow } from "./FormBuilder.helpers";
 import { FormBuilderActions, FormBuilderActionsProps } from "./Actions";
 
-export interface FormBuilderProps {
+export interface FormBuilderProps<T> {
     inputs: InputType[]
-    initialValues?: any
+    initialValues?: T
     validationSchema?: any
-    onSubmit: (data: any) => void
+    onSubmit: (data: T | Object) => void
     actionsProps?: FormBuilderActionsProps
     inputClassName?: string
 }
 
-export function FormBuilder({
+export function FormBuilder<T>({
     inputs,
     initialValues,
     validationSchema,
     onSubmit,
     actionsProps,
     inputClassName
-}: FormBuilderProps) {
+}: FormBuilderProps<T>) {
+    const { submitButtonProps, ...restActionsProps } = actionsProps || {}
 
-    const { register, handleSubmit, formState, watch, control } = useForm({
-        defaultValues: initialValues,
-        resolver: validationSchema,
+    const formik = useFormik({
+        initialValues: initialValues || {},
+        validationSchema,
+        onSubmit,
+        enableReinitialize: true,
     })
-    // console.log("values", watch())
+
+    const {
+        handleChange,
+        handleBlur,
+        submitForm,
+        isValid,
+        values,
+    } = formik
+
+    const disableSubmit = !isValid
+
     return (
         <FormBuilderContext.Provider
             value={{
-                currentValues: watch(),
-                errors: formState.errors,
-                touched: formState.touchedFields,
+                currentValues: values,
+                errors: formik?.errors,
+                touched: formik?.touched,
             }}
         >
             <form
@@ -46,7 +59,7 @@ export function FormBuilder({
                 autoComplete="off"
                 onSubmit={(e: FormEvent<HTMLFormElement>) => {
                     e.preventDefault()
-                    handleSubmit(onSubmit)()
+                    submitForm()
                 }}
             >
                 <Grid
@@ -63,34 +76,32 @@ export function FormBuilder({
                         >
                             {row.inputs
                                 .filter(input => !input.hidden)
-                                .map((input, inputIndex) => {
-                                    const registerProps = register(input.name, {
-                                        // required: input.required,
-                                    })
-
-                                    return (
-                                        <Grid
-                                            id="form-builder-inputs-col"
-                                            key={inputIndex}
-                                            item
-                                            xs={input.mobileWidth || 12}
-                                            md={input.width || 12}
-                                        >
-                                            <MemoInput
-                                                inputRef={registerProps.ref}
-                                                className={inputClassName}
-                                                control={control}
-                                                {...input}
-                                                {...registerProps}
-                                            />
-                                        </Grid>
-                                    )
-                                })}
+                                .map((input, inputIndex) => (
+                                    <Grid
+                                        id="form-builder-inputs-col"
+                                        key={inputIndex}
+                                        item
+                                        xs={input.mobileWidth || 12}
+                                        md={input.width || 12}
+                                    >
+                                        <MemoInput
+                                            className={inputClassName}
+                                            {...input}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                        />
+                                    </Grid>
+                                )
+                                )}
                         </Grid>
                     ))}
 
                     <FormBuilderActions
-                        {...actionsProps}
+                        {...restActionsProps}
+                        submitButtonProps={{
+                            disabled: disableSubmit || submitButtonProps?.disabled,
+                            ...submitButtonProps
+                        }}
                     />
 
                 </Grid>

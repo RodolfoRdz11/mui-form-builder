@@ -1,11 +1,11 @@
 import { ChangeEvent } from "react";
 import { Theme } from "@mui/material";
+import { tss } from "tss-react/mui";
+
+// Infer the type returned by tss.create
+export declare type TssStyles = ReturnType<typeof tss.create>;
 
 export * from './components'
-
-declare module '@mui/styles' {
-    interface DefaultTheme extends Theme { }
-}
 
 export type onChangeEventType = ChangeEvent<HTMLInputElement> | {
     target: {
@@ -20,6 +20,7 @@ export interface InputPropsType<T = any> {
     name: keyof T | any
     value?: any
     onChange?: (event: onChangeEventType) => void
+    onBlur?: (event: onChangeEventType) => void
     disabled?: boolean
     /**Custom error message */
     error?: string
@@ -32,6 +33,7 @@ export interface InputPropsType<T = any> {
     config?: any
     className?: string
     inputRef?: any
+    helper?: string
 }
 
 export type InputTypes =
@@ -46,6 +48,7 @@ export type InputTypes =
     | 'textarea'
     | 'currency'
     | 'autocomplete'
+    | 'color'
 
 
 export interface InputType<T = any> extends InputPropsType<T> {

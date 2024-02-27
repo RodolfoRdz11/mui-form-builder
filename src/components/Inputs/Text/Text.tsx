@@ -28,7 +28,7 @@ export function TextInput({
     value,
     ...rest
 }: TextInputProps) {
-    const classes = useStyles()
+    const { classes, cx } = useStyles()
 
     return (
         <FormControl

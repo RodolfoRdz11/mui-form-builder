@@ -1,23 +1,24 @@
-import { makeStyles } from "@mui/styles"
+import { TssStyles } from "src/types";
+import { tss } from "tss-react/mui";
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles: TssStyles = tss.create(({ theme }) => ({
     container: {
-        paddingTop: 16,
-        gap: 16
+        paddingTop: 8,
     },
     row: {
         flexDirection: 'row'
     },
     card: {
         border: '1px solid #CFD5E2',
-        // padding: 16,
+        padding: '8px 16px',
         borderRadius: 8,
         display: 'flex',
         alignItems: 'center',
         cursor: 'pointer',
         minHeight: 40,
         '& > p': {
-            wordBreak: 'break-word'
+            wordBreak: 'break-word',
+            fontSize: 14,
         }
     },
     selected: {

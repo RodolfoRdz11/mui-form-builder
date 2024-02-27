@@ -1,6 +1,7 @@
-import { makeStyles } from "@mui/styles";
+import { TssStyles } from "src/types";
+import { tss } from "tss-react/mui";
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles: TssStyles = tss.create(({ theme }) => ({
     container: {
         paddingTop: 16,
     },

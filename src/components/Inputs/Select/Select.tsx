@@ -11,6 +11,7 @@ import {
 import ExpandIcon from "@mui/icons-material/ExpandMoreRounded"
 import { InputPropsType } from "src/types";
 import { useStyles } from "./Select.styles"
+import { TextInput } from "..";
 
 export interface SelectOptionType {
     label: string
@@ -38,7 +39,7 @@ export function SelectInput({
     value,
     ...rest
 }: SelectInputProps) {
-    const classes = useStyles()
+    const { classes, cx } = useStyles()
     const { MenuProps, ...restSelectProps } = SelectProps || {}
 
     return (

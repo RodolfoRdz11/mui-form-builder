@@ -1,10 +1,11 @@
 import { ElementType } from "react";
 import { InputPropsType } from "src/types";
-import { FormControlProps } from "./../../FormControl";
+import { FormControlProps } from "../../FormControl"
 
 import { RadioStandardInput } from "./Standard";
 import { RadioChipInput } from "./Chip";
 import { RadioCardInput } from "./Card";
+import { GridSize } from "@mui/material";
 
 export type RadioInputProps = InputPropsType & FormControlProps & {
     variant: 'standard' | 'chip' | 'card'
@@ -12,6 +13,7 @@ export type RadioInputProps = InputPropsType & FormControlProps & {
      * Disaply options horizontally
      */
     row?: boolean
+    mobileWidth?: GridSize
 }
 
 const radioInputVariant: { [name: string]: ElementType } = {

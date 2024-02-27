@@ -1,14 +1,18 @@
 import { ChangeEvent, ElementType } from "react";
-import { Checkbox, Switch, FormControlLabel } from "@mui/material";
+import { Checkbox, FormControlLabel } from "@mui/material";
 import { CheckInputProps } from "../Check";
+import { CustomSwitch } from "./Standard.styles";
 
-type CheckStandardInput = CheckInputProps & {
+import CheckboxEmptyIcon from "./icons/checkbox_empty.svg"
+import CheckboxIcon from "./icons/checkbox.svg"
+
+type CheckStandardInputProps = CheckInputProps & {
     controlType: 'check' | 'switch'
 }
 
 const controlComponents: { [name: string]: ElementType } = {
-    standard: Checkbox,
-    switch: Switch
+    check: Checkbox,
+    switch: CustomSwitch
 }
 
 export function CheckStandardInput({
@@ -18,9 +22,14 @@ export function CheckStandardInput({
     value,
     control,
     variant = 'standard',
+    controlType = 'check',
     ...rest
-}: CheckInputProps) {
-    const ControlComponent = controlComponents[variant]
+}: CheckStandardInputProps) {
+    const ControlComponent = controlComponents[controlType || 'check']
+    const componentProps = controlType === 'switch' ? {} : {
+        icon: <CheckboxEmptyIcon />,
+        checkedIcon: <CheckboxIcon />
+    }
 
     return (
         <FormControlLabel
@@ -29,8 +38,9 @@ export function CheckStandardInput({
                 <ControlComponent
                     checked={Boolean(value)}
                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                        if (onChange) onChange({ target: { name, value: event.target.checked } })
+                        onChange?.({ target: { name, value: event.target.checked } })
                     }}
+                    {...componentProps}
                 />
             }
             {...rest}

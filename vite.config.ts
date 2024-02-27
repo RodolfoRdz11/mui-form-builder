@@ -1,60 +1,70 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import dts from 'vite-plugin-dts';
-import { extname, relative, resolve } from 'path'
-import { fileURLToPath } from 'node:url'
-import glob from 'glob'
+import { resolve } from 'path'
+import react from '@vitejs/plugin-react-swc'
+import dts from 'vite-plugin-dts'
+import svgr from "vite-plugin-svgr";
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    dts({
-      insertTypesEntry: true,
-      include: ['src']
-    })
+    dts({ include: ['src'], insertTypesEntry: true }),
+    svgr({ include: '**/*.svg' })
   ],
+  resolve: {
+    alias: {
+      'src': '/src'
+    }
+  },
+  optimizeDeps: {
+    include: [
+      'react',
+      'react-dom',
+      '@mui/material',
+      '@emotion/react',
+      '@emotion/styled',
+      '@mui/icons-material',
+      '@mui/x-date-pickers',
+      'react/jsx-runtime',
+      'tss-react'
+    ]
+  },
   build: {
-    copyPublicDir: false,
     lib: {
+      name: '@kredimx/form-builder',
       entry: resolve(__dirname, 'src/main.ts'),
       formats: ['es'],
+      fileName: format => `index.${format}.js`
     },
+    target: 'esnext',
+    minify: true,
+    copyPublicDir: false,
     rollupOptions: {
       external: [
         'react',
         'react-dom',
-        '@mui/styles',
+        'react-is',
         '@mui/material',
-        '@mui/styled-engine',
         '@emotion/react',
-        '@emotion/styled'
+        '@emotion/styled',
+        '@mui/icons-material',
+        '@mui/x-date-pickers',
+        'react/jsx-runtime',
+        'tss-react'
       ],
-      // input: Object.fromEntries(
-      //   glob.sync('src/**/*.{ts,tsx}').map(file => [
-      //     // The name of the entry point
-      //     // lib/nested/foo.ts becomes nested/foo
-      //     relative(
-      //       'src',
-      //       file.slice(0, file.length - extname(file).length)
-      //     ),
-      //     // The absolute path to the entry file
-      //     // lib/nested/foo.ts becomes /project/lib/nested/foo.ts
-      //     fileURLToPath(new URL(file, import.meta.url))
-      //   ])
-      // ),
-      // output: {
-      //   globals: {
-      //     react: 'React',
-      //     'react-dom': 'ReactDOM',
-      //     '@mui/styles': 'MuiStyles',
-      //     '@mui/material': 'Mui',
-      //     '@mui/styled-engine': 'MuiStyledEngine',
-      //     '@emotion/react': 'EmotionReact',
-      //     '@emotion/styled': 'EmotionStyled'
-      //   },
-      //   // entryFileNames: '[name].js',
-      // },
-    },
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+          'react-is': 'reactIs',
+          '@mui/material': 'mui',
+          '@emotion/react': 'emotionReact',
+          '@emotion/styled': 'emotionStyled',
+          '@mui/icons-material': 'muiIcons',
+          '@mui/x-date-pickers': 'xDatePickers',
+          'react/jsx-runtime': 'jsxRuntime',
+          'tss-react': 'tssReact'
+        }
+      }
+    }
   },
 })

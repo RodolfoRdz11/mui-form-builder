@@ -2,10 +2,10 @@ import { Grid, Typography } from "@mui/material"
 import CheckIcon from "@mui/icons-material/CheckCircle"
 import { CheckInputProps } from "../Check";
 import { useStyles } from "./Chip.styles"
-import clsx from "clsx";
+
 
 export function CheckChipInput({ name, label, value, disabled, onChange }: CheckInputProps) {
-    const classes = useStyles()
+    const { classes, cx } = useStyles()
 
     return (
         <Grid
@@ -16,7 +16,7 @@ export function CheckChipInput({ name, label, value, disabled, onChange }: Check
             <Grid
                 item
                 xs={12}
-                className={clsx(classes.chip, {
+                className={cx(classes.chip, {
                     [classes.selected]: Boolean(value),
                     [classes.disabled]: disabled
                 })}

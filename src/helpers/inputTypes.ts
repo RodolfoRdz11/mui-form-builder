@@ -8,7 +8,8 @@ import {
     RadioInput,
     SelectInput,
     TextAreaInput,
-    TextInput
+    TextInput,
+    ColorPickerInput
 } from "../components/Inputs";
 
 export const inputTypes: { [key in InputTypes]: any } = Object.freeze({
@@ -18,6 +19,7 @@ export const inputTypes: { [key in InputTypes]: any } = Object.freeze({
     email: EmailInput,
     password: PasswordInput,
     checkbox: TextInput,
+    color: ColorPickerInput,
     radio: RadioInput,
     date: DateInput,
     textarea: TextAreaInput,

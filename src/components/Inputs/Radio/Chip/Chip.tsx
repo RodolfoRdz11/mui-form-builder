@@ -4,7 +4,7 @@ import { FormControl } from "../../../FormControl";
 import { RadioInputProps } from "../Radio";
 import { useStyles } from "./Chip.styles"
 import _ from "lodash"
-import clsx from "clsx";
+
 
 export function RadioChipInput({
     label,
@@ -19,7 +19,7 @@ export function RadioChipInput({
     row,
     ...rest
 }: RadioInputProps) {
-    const classes = useStyles()
+    const { classes, cx } = useStyles()
 
     return (
         <FormControl
@@ -31,7 +31,7 @@ export function RadioChipInput({
             <Grid
                 container
                 spacing={4}
-                className={clsx(classes.container, { [classes.row]: row }, className)}
+                className={cx(classes.container, { [classes.row]: row }, className)}
             >
                 {options?.map(option => {
                     const label = _.isString(option) ? option : option.label
@@ -41,7 +41,7 @@ export function RadioChipInput({
                         <Grid
                             key={_value}
                             item
-                            className={clsx(classes.chip, {
+                            className={cx(classes.chip, {
                                 [classes.selected]: _value === value,
                                 [classes.disabled]: disabled
                             })}
